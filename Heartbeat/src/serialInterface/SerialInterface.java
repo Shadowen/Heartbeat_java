@@ -158,6 +158,7 @@ public class SerialInterface implements SerialPortEventListener {
 						for (DataListener l : dataListeners) {
 							l.dataRecieved(currentId, data);
 						}
+						serialState = STATE_WAIT_IDENTIFIER;
 						break;
 					default:
 						System.err.println("Error: Invalid state!");

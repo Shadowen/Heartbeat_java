@@ -217,6 +217,11 @@ public class DisplayFrame extends JFrame implements DataListener {
 		serialMonitorPanel.dataRecieved(id, data.duplicate());
 		// Split different data to different places as necessary.
 		switch (id) {
+		case 10:
+		case 11:
+		case 12:
+			navigationPanel.updateGrid(id, data.asReadOnlyBuffer());
+			break;
 		case 15:
 			boardStatePanel.updateBoardState(data.asReadOnlyBuffer());
 			break;

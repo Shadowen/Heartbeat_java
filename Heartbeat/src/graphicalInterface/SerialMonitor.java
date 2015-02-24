@@ -66,7 +66,15 @@ public class SerialMonitor extends JPanel implements DataListener {
 	 * 
 	 */
 	public void dataRecieved(int id, ByteBuffer data) {
-		serialMonitorTextArea.append("(" + String.valueOf(id) + "): "
-				+ new String(data.array()) + "\n");
+		switch (id) {
+		case 5:
+		case 6:
+			serialMonitorTextArea.append("(" + String.valueOf(id) + "): "
+					+ data.get() + "\n");
+			break;
+		default:
+			serialMonitorTextArea.append("(" + String.valueOf(id) + "): "
+					+ new String(data.array()) + "\n");
+		}
 	}
 }
