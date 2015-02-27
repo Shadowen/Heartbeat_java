@@ -15,11 +15,10 @@ public class NavigationPanel extends JPanel {
 	private int lineSpacing = 30;
 	private int lineWeight = 2;
 
-	private int pathPointSize = 5;
-
-	private int robotLocationX = 0;
-	private int robotLocationY = 0;
-	private int robotLocationSize = 3;
+	private int robotX = 0;
+	private int robotY = 0;
+	private int robotFacing = 0;
+	private int robotLocationSize = 5;
 
 	private int dFromStart[][] = new int[7][7];
 	private int heuristicDistance[][] = new int[7][7];
@@ -100,8 +99,12 @@ public class NavigationPanel extends JPanel {
 
 		// Current location
 		g.setColor(Color.GREEN);
-		g.fillOval(robotLocationX, robotLocationY, robotLocationSize,
+		g.fillOval((robotX + 1) * lineSpacing - lineWeight, (7 - robotY)
+				* lineSpacing - lineWeight, robotLocationSize,
 				robotLocationSize);
+		g.setColor(Color.BLACK);
+		g.drawString("(" + robotX + ", " + robotY + ") " + robotFacing, 10,
+				lineSpacing * 9);
 	}
 
 	public void updateGrid(int id, ByteBuffer data) {
@@ -124,6 +127,12 @@ public class NavigationPanel extends JPanel {
 				}
 			}
 			break;
+		case 13:
+			robotX = data.get();
+			robotY = data.get();
+			break;
+		case 14:
+			robotFacing = data.get();
 		default:
 			System.err.println("Nav Panel got wrong data!");
 		}

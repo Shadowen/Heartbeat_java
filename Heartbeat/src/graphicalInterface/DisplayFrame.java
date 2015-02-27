@@ -42,6 +42,7 @@ public class DisplayFrame extends JFrame implements DataListener {
 	private SerialInterface serialComm;
 	private SerialMonitor serialMonitorPanel;
 	private BoardStatePanel boardStatePanel;
+	private LocalizationPanel localizationPanel;
 	private NavigationPanel navigationPanel;
 
 	public static void main(String[] args) {
@@ -78,10 +79,14 @@ public class DisplayFrame extends JFrame implements DataListener {
 		gbc.gridx = 2;
 		gbc.gridy = 2;
 		add(boardStatePanel, gbc);
-
+		// Localization Panel
+		localizationPanel = new LocalizationPanel();
+		gbc.gridx = 2;
+		gbc.gridy = 1;
+		add(localizationPanel, gbc);
 		// Navigation Panel
 		navigationPanel = new NavigationPanel();
-		gbc.gridx = 2;
+		gbc.gridx = 3;
 		gbc.gridy = 1;
 		add(navigationPanel, gbc);
 
@@ -198,11 +203,9 @@ public class DisplayFrame extends JFrame implements DataListener {
 		menuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane
-						.showMessageDialog(
-								DisplayFrame.this,
-								"Heartbeat v3.14\nBy Wesley Heung",
-								"About", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog(DisplayFrame.this,
+						"Heartbeat v3.14\nBy Wesley Heung", "About",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 		});
 		menu.add(menuItem);
@@ -213,17 +216,26 @@ public class DisplayFrame extends JFrame implements DataListener {
 
 	@Override
 	public void dataRecieved(int id, ByteBuffer data) {
-		// Give a duplicate of the data to the serial monitor.
-		serialMonitorPanel.dataRecieved(id, data.duplicate());
 		// Split different data to different places as necessary.
 		switch (id) {
+		case 0:
+		case 1:
+			// Give a duplicate of the data to the serial monitor.
+			serialMonitorPanel.dataRecieved(id, data.duplicate());
+			break;
 		case 10:
 		case 11:
 		case 12:
+		case 13:
+		case 14:
 			navigationPanel.updateGrid(id, data.asReadOnlyBuffer());
 			break;
 		case 15:
 			boardStatePanel.updateBoardState(data.asReadOnlyBuffer());
+			break;
+		case 24:
+			localizationPanel.updateSensorReadings(data.getShort(),
+					data.getShort(), data.getShort(), data.getShort());
 			break;
 		}
 	}
