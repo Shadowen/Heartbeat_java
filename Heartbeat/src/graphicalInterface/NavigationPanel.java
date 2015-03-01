@@ -98,10 +98,31 @@ public class NavigationPanel extends JPanel {
 		}
 
 		// Current location
+		int rgx = (robotX + 1) * lineSpacing - lineWeight;
+		int rgy = (7 - robotY) * lineSpacing - lineWeight;
 		g.setColor(Color.GREEN);
-		g.fillOval((robotX + 1) * lineSpacing - lineWeight, (7 - robotY)
-				* lineSpacing - lineWeight, robotLocationSize,
-				robotLocationSize);
+		g.fillOval(rgx, rgy, robotLocationSize, robotLocationSize);
+		if (robotFacing == 3) {
+			// Left
+			g.drawLine(rgx, rgy, rgx - 5, rgy);
+			g.drawLine(rgx - 5, rgy, rgx - 3, rgy + 3);
+			g.drawLine(rgx - 5, rgy, rgx - 3, rgy - 3);
+		} else if (robotFacing == 1) {
+			// Right
+			g.drawLine(rgx, rgy, rgx + 5, rgy);
+			g.drawLine(rgx + 5, rgy, rgx + 3, rgy + 3);
+			g.drawLine(rgx + 5, rgy, rgx + 3, rgy - 3);
+		} else if (robotFacing == 2) {
+			// Down
+			g.drawLine(rgx, rgy, rgx, rgy - 5);
+			g.drawLine(rgx, rgy + 5, rgx + 3, rgy + 3);
+			g.drawLine(rgx, rgy + 5, rgx - 3, rgy + 3);
+		} else if (robotFacing == 0) {
+			// Up
+			g.drawLine(rgx, rgy, rgx, rgy + 5);
+			g.drawLine(rgx, rgy - 5, rgx + 3, rgy - 3);
+			g.drawLine(rgx, rgy - 5, rgx - 3, rgy - 3);
+		}
 		g.setColor(Color.BLACK);
 		g.drawString("(" + robotX + ", " + robotY + ") " + robotFacing, 10,
 				lineSpacing * 9);
@@ -134,7 +155,7 @@ public class NavigationPanel extends JPanel {
 		case 14:
 			robotFacing = data.get();
 		default:
-			System.err.println("Nav Panel got wrong data!");
+			System.err.println("Nav Panel got wrong data! (" + id + ")");
 		}
 		repaint();
 	}

@@ -234,8 +234,7 @@ public class DisplayFrame extends JFrame implements DataListener {
 			boardStatePanel.updateBoardState(data.asReadOnlyBuffer());
 			break;
 		case 24:
-			localizationPanel.updateSensorReadings(data.getShort(),
-					data.getShort(), data.getShort(), data.getShort());
+			localizationPanel.updateSensorReadings(data.asReadOnlyBuffer());
 			break;
 		}
 	}
