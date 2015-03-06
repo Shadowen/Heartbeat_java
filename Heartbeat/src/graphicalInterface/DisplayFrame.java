@@ -44,6 +44,7 @@ public class DisplayFrame extends JFrame implements DataListener {
 	private BoardStatePanel boardStatePanel;
 	private LocalizationPanel localizationPanel;
 	private NavigationPanel navigationPanel;
+	private ObstaclePanel obstaclePanel;
 
 	public static void main(String[] args) {
 		new DisplayFrame();
@@ -74,23 +75,28 @@ public class DisplayFrame extends JFrame implements DataListener {
 		gbc.gridy = 1;
 		add(serialMonitorPanel, gbc);
 
-		// Board state
+		// BoardStatePanel
 		boardStatePanel = new BoardStatePanel();
 		gbc.gridx = 2;
 		gbc.gridy = 2;
 		add(boardStatePanel, gbc);
-		// Localization Panel
+		// LocalizationPanel
 		localizationPanel = new LocalizationPanel();
 		gbc.gridx = 2;
 		gbc.gridy = 1;
 		add(localizationPanel, gbc);
-		// Navigation Panel
+		// NavigationPanel
 		navigationPanel = new NavigationPanel();
 		gbc.gridx = 3;
 		gbc.gridy = 1;
 		add(navigationPanel, gbc);
+		// ObstaclePanel
+		obstaclePanel = new ObstaclePanel(serialComm);
+		gbc.gridx = 1;
+		gbc.gridy = 2;
+		add(obstaclePanel, gbc);
 
-		// TODO
+		// TODO Auto connect to first available port
 		System.out.println("Ports Available:");
 		Enumeration e = serialComm.getPortNames();
 		while (e.hasMoreElements()) {

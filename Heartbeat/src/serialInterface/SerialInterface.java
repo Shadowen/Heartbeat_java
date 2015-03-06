@@ -200,7 +200,7 @@ public class SerialInterface implements SerialPortEventListener {
 	 *             Thrown if the serial port being written to has not been
 	 *             opened.
 	 */
-	private void sendData(int id, ByteBuffer data) throws IOException,
+	public void sendData(int id, ByteBuffer data) throws IOException,
 			SerialPortNotOpenException {
 
 		if (serialPort == null) {

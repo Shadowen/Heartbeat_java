@@ -69,8 +69,6 @@ public class NavigationPanel extends JPanel {
 				int gx = (x + 1) * lineSpacing;
 				int gy = (7 - y) * lineSpacing;
 				Point p = parents[x][y];
-
-				System.out.println("(" + x + ", " + y + ") " + p);
 				if (p.x == x - 1) {
 					// Left
 					g.drawLine(gx, gy, gx - 5, gy);
@@ -91,8 +89,6 @@ public class NavigationPanel extends JPanel {
 					g.drawLine(gx, gy, gx, gy + 5);
 					g.drawLine(gx, gy - 5, gx + 3, gy - 3);
 					g.drawLine(gx, gy - 5, gx - 3, gy - 3);
-				} else {
-					System.err.println("Invalid parent");
 				}
 			}
 		}
