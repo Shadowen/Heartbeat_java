@@ -1,11 +1,13 @@
 package graphicalInterface;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,6 +29,8 @@ public class ObstaclePanel extends JPanel implements ActionListener {
 
 	public ObstaclePanel(SerialInterface s) {
 		serialInterface = s;
+
+		setBorder(BorderFactory.createLineBorder(Color.BLUE));
 
 		JLabel xLabel = new JLabel("X");
 		xSpinner = new JSpinner(new CyclingSpinnerListModel(allowableHopperX));
